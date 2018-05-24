@@ -18,6 +18,8 @@ function eventListeners() {
 
   //   reseting the form
   resetBtn.addEventListener("click", resetForm);
+
+  sendEmailForm.addEventListener("submit", sendEmail);
 }
 
 // functions
@@ -26,6 +28,32 @@ function eventListeners() {
 function appInit() {
   // disable the send button on load
   sendBtn.disabled = true;
+}
+
+function sendEmail(e) {
+  e.preventDefault();
+
+  //   show the spinner when the form is submitted
+  const spinner = document.getElementById("spinner");
+  spinner.style.display = "block";
+
+  // showing the image
+  const sendEmailImg = document.createElement("img");
+  sendEmailImg.src = "img/mail.gif";
+  sendEmailImg.style.display = "block";
+
+  //   hide the spinner after 3 sec and show another image
+  setTimeout(function() {
+    spinner.style.display = "none";
+
+    document.querySelector("#loaders").appendChild(sendEmailImg);
+
+    // after 5 seconds remove the image and reset the form
+    setTimeout(function() {
+      sendEmailForm.reset();
+      sendEmailImg.remove();
+    }, 5000);
+  }, 3000);
 }
 
 // validating the fields
